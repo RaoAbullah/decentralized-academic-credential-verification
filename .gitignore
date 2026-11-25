@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Local cache & temporary files
+.*appdata*
+*appdata*
+__pycache__/
+*.pyc
+
+# Build outputs
+artifacts/
+cache/
+dist/
+*/dist/
+typechain/
+typechain-types/
+
+# Environment & logs
+.env
+*.log
+gas-report.txt
+coverage/
+coverage.json
+test_print.pdf

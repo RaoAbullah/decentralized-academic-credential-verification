@@ -1,0 +1,1318 @@
+{
+  "network": "localhost",
+  "chainId": 1337,
+  "rpcUrl": "http://127.0.0.1:8545",
+  "deployedAt": "2026-11-25T11:24:39.109Z",
+  "contracts": {
+    "InstitutionRegistry": {
+      "address": "0x59b670e9fA9D0A427751Af201D676719a970857b",
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "admin",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "inputs": [],
+          "name": "AccessControlBadConfirmation",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "neededRole",
+              "type": "bytes32"
+            }
+          ],
+          "name": "AccessControlUnauthorizedAccount",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "EmptyStringNotAllowed",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "EnforcedPause",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "ExpectedPause",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "IdenticalStatusTransition",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "institutionAddress",
+              "type": "address"
+            }
+          ],
+          "name": "InstitutionAlreadyRegistered",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "institutionAddress",
+              "type": "address"
+            }
+          ],
+          "name": "InstitutionNotRegistered",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "ZeroAddressNotAllowed",
+          "type": "error"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "institutionAddress",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "accreditationCode",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "registeredAt",
+              "type": "uint64"
+            }
+          ],
+          "name": "InstitutionRegistered",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "institutionAddress",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "enum IInstitutionRegistry.InstitutionStatus",
+              "name": "oldStatus",
+              "type": "uint8"
+            },
+            {
+              "indexed": false,
+              "internalType": "enum IInstitutionRegistry.InstitutionStatus",
+              "name": "newStatus",
+              "type": "uint8"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "updatedAt",
+              "type": "uint64"
+            }
+          ],
+          "name": "InstitutionStatusUpdated",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32"
+            }
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleGranted",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleRevoked",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "REGULATOR_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "institutionAddress",
+              "type": "address"
+            }
+          ],
+          "name": "getInstitution",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "accreditationCode",
+              "type": "string"
+            },
+            {
+              "internalType": "enum IInstitutionRegistry.InstitutionStatus",
+              "name": "status",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint64",
+              "name": "registeredAt",
+              "type": "uint64"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            }
+          ],
+          "name": "getRoleAdmin",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "grantRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "hasRole",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "institutionAddress",
+              "type": "address"
+            }
+          ],
+          "name": "isInstitutionActive",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "institutionAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "accreditationCode",
+              "type": "string"
+            }
+          ],
+          "name": "registerInstitution",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "callerConfirmation",
+              "type": "address"
+            }
+          ],
+          "name": "renounceRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "revokeRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4"
+            }
+          ],
+          "name": "supportsInterface",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "institutionAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "enum IInstitutionRegistry.InstitutionStatus",
+              "name": "newStatus",
+              "type": "uint8"
+            }
+          ],
+          "name": "updateInstitutionStatus",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ]
+    },
+    "CredentialRegistry": {
+      "address": "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "admin",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "institutionRegistryAddress",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "inputs": [],
+          "name": "AccessControlBadConfirmation",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "neededRole",
+              "type": "bytes32"
+            }
+          ],
+          "name": "AccessControlUnauthorizedAccount",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "requested",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxAllowed",
+              "type": "uint256"
+            }
+          ],
+          "name": "BatchSizeExceeded",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "credentialHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "CredentialAlreadyExists",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "credentialHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "CredentialAlreadyRevoked",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "credentialHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "CredentialNotFound",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "EmptyBatchArray",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "EmptyRevocationReason",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "EnforcedPause",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "ExpectedPause",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "InvalidCredentialHash",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "caller",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "actualIssuer",
+              "type": "address"
+            }
+          ],
+          "name": "NotCredentialIssuerOrAdmin",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "caller",
+              "type": "address"
+            }
+          ],
+          "name": "UnauthorizedInstitution",
+          "type": "error"
+        },
+        {
+          "inputs": [],
+          "name": "ZeroAddressNotAllowed",
+          "type": "error"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "count",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "issuer",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "issuedAt",
+              "type": "uint64"
+            }
+          ],
+          "name": "BatchCredentialsIssued",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "credentialHash",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "issuer",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "issuedAt",
+              "type": "uint64"
+            }
+          ],
+          "name": "CredentialIssued",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "credentialHash",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "revoker",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "reason",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "revokedAt",
+              "type": "uint64"
+            }
+          ],
+          "name": "CredentialRevoked",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32"
+            }
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleGranted",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleRevoked",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "INSTITUTION_REGISTRY",
+          "outputs": [
+            {
+              "internalType": "contract IInstitutionRegistry",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "MAX_BATCH_SIZE",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32[]",
+              "name": "credentialHashes",
+              "type": "bytes32[]"
+            }
+          ],
+          "name": "batchIssueCredentials",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "credentialHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "getCredential",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "issuer",
+              "type": "address"
+            },
+            {
+              "internalType": "uint64",
+              "name": "issuedAt",
+              "type": "uint64"
+            },
+            {
+              "internalType": "bool",
+              "name": "isRevoked",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint64",
+              "name": "revokedAt",
+              "type": "uint64"
+            },
+            {
+              "internalType": "enum ICredentialRegistry.CredentialState",
+              "name": "state",
+              "type": "uint8"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            }
+          ],
+          "name": "getRoleAdmin",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "grantRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "hasRole",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "credentialHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "issueCredential",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "callerConfirmation",
+              "type": "address"
+            }
+          ],
+          "name": "renounceRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "credentialHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "string",
+              "name": "reason",
+              "type": "string"
+            }
+          ],
+          "name": "revokeCredential",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "revokeRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4"
+            }
+          ],
+          "name": "supportsInterface",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ]
+    },
+    "VerificationGateway": {
+      "address": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "institutionRegistryAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "credentialRegistryAddress",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "inputs": [],
+          "name": "ZeroAddressNotAllowed",
+          "type": "error"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "credentialHash",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "verifier",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "isValid",
+              "type": "bool"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "timestamp",
+              "type": "uint64"
+            }
+          ],
+          "name": "VerificationLogged",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "CREDENTIAL_REGISTRY",
+          "outputs": [
+            {
+              "internalType": "contract ICredentialRegistry",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "INSTITUTION_REGISTRY",
+          "outputs": [
+            {
+              "internalType": "contract IInstitutionRegistry",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "credentialHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "logVerificationReceipt",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "isValid",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "string",
+                  "name": "statusMessage",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address",
+                  "name": "issuerAddress",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "institutionName",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "accreditationCode",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "issuedAt",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isRevoked",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "revokedAt",
+                  "type": "uint64"
+                }
+              ],
+              "internalType": "struct IVerificationGateway.VerificationResult",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "credentialHash",
+              "type": "bytes32"
+            }
+          ],
+          "name": "verifyCredential",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "isValid",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "string",
+                  "name": "statusMessage",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address",
+                  "name": "issuerAddress",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "institutionName",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "accreditationCode",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "issuedAt",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isRevoked",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "revokedAt",
+                  "type": "uint64"
+                }
+              ],
+              "internalType": "struct IVerificationGateway.VerificationResult",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        }
+      ]
+    }
+  }
+}
